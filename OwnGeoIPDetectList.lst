@@ -59,12 +59,12 @@ bigdatacloud.com
 bigdatacloud.net
 bigdig.energy
 boip.net
-browserleaks.com
-browserleaks.io
-browserleaks.net
-browserleaks.org
-browserscan.net
-browserscan.one
+//browserleaks.com
+//browserleaks.io
+//browserleaks.net
+//browserleaks.org
+//browserscan.net
+//browserscan.one
 bscan.info
 bulkgeoip.com
 canhazip.com
@@ -160,12 +160,12 @@ dein-ip-check.de
 detectip.ai
 deviceinfo.io
 dnscheck.tools
-dnsleak.com
-dnsleak.dev
-dnsleak.net
-dnsleaktest.co.uk
-dnsleaktest.com
-dnsleaktest.org
+//dnsleak.com
+//dnsleak.dev
+//dnsleak.net
+//dnsleaktest.co.uk
+//dnsleaktest.com
+//dnsleaktest.org
 echoip.de
 echoip.ir
 eth0.cloud
@@ -1524,7 +1524,7 @@ yourip.top
 yourip.us
 zistiip.sk
 
-# Subdomains/internal api used for ip-geo-detect
+// Subdomains/internal api used for ip-geo-detect
 2ip.kamensky-lab.ru
 2ip.telecom24.link
 am.i.mullvad.net
