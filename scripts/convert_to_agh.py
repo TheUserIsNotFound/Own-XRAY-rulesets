@@ -1,9 +1,37 @@
 import os
 import urllib.request
 
-# Источник: список MetaCubeX для Mihomo
 SOURCE_URL = "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ip-geo-detect.list"
 OUTPUT_FILE = "adguard/OwnGeoIPDetectList.txt"
+
+EXCLUDED_DOMAINS = {
+    "2ip.cc",
+    "2ip.ee",
+    "2ip.eu",
+    "2ip.ge",
+    "2ip.info",
+    "2ip.io",
+    "2ip.kz",
+    "2ip.lt",
+    "2ip.me",
+    "2ip.my",
+    "2ip.nl",
+    "2ip.ru",
+    "2ip.tg",
+    "2ip.ua",
+    "2ip.uk",
+    "browserleaks.com",
+    "browserleaks.io",
+    "browserleaks.net",
+    "browserleaks.org",
+}
+
+
+def is_excluded(domain: str) -> bool:
+  return any(
+      domain == excluded or domain.endswith("." + excluded)
+      for excluded in EXCLUDED_DOMAINS
+  )
 
 
 def main():
@@ -14,28 +42,28 @@ def main():
   seen = set()
 
   for raw in lines:
-    line = raw.split("#")[0].split("//")[0].strip()
+    line = raw.split("#")[0].split("//")[0].strip().lower()
     if not line or " " in line:
       continue
 
     if line.startswith("+."):
       domain = line[2:].lstrip(".")
-      rule = f"||{domain}^"
     elif line.startswith("domain:"):
       domain = line[7:].lstrip(".")
-      rule = f"||{domain}^"
-    elif line.startswith("."):
-      domain = line[1:].lstrip(".")
-      rule = f"||*.{domain}^"
     elif line.startswith("full:"):
       domain = line[5:].lstrip(".")
-      rule = f"|{domain}^"
+    elif line.startswith("."):
+      domain = line[1:].lstrip(".")
     elif ":" in line:
-      # Пропускаем keyword: и regexp:, которые не поддерживаются DNS-фильтрами AGH
+      # Пропускаем keyword: и regexp:, не поддерживаемые в DNS-фильтрах AGH
       continue
     else:
-      rule = f"|{line}^"
+      domain = line.lstrip(".")
 
+    if not domain or is_excluded(domain):
+      continue
+
+    rule = f"||{domain}^"
     if rule not in seen:
       seen.add(rule)
       rules.append(rule)
