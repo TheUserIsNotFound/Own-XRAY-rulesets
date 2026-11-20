@@ -1,0 +1,35 @@
+name: Update AdGuard Home Rulesets
+
+on:
+  schedule:
+    - cron: '15 3 * * *' # Ежедневное обновление в 03:15 UTC
+  push:
+    paths:
+      - 'scripts/convert_to_agh.py'
+      - 'OwnGeoIPDetectList.lst'
+  workflow_dispatch:     # Кнопка ручного запуска во вкладке Actions
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Convert rulesets for AdGuard Home
+        run: python3 scripts/convert_to_agh.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add adguard/OwnGeoIPDetectList.txt
+          git diff --staged --quiet || (git commit -m "Update adguard/OwnGeoIPDetectList.txt" && git push)
