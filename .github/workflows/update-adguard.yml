@@ -31,5 +31,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add adguard/OwnGeoIPDetectList.txt
-          git diff --staged --quiet || (git commit -m "Update adguard/OwnGeoIPDetectList.txt" && git push)
+          git add adguard-home/OwnGeoIPDetectList.txt
+          git diff --staged --quiet || (git commit -m "Update adguard-home/OwnGeoIPDetectList.txt" && git push)
