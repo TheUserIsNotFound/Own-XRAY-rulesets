@@ -2,7 +2,7 @@ import os
 import urllib.request
 
 SOURCE_URL = "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ip-geo-detect.list"
-OUTPUT_FILE = "adguard/OwnGeoIPDetectList.txt"
+OUTPUT_FILE = "adguard-home/OwnGeoIPDetectList.txt"
 
 EXCLUDED_DOMAINS = {
     "2ip.cc",
